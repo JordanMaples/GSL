@@ -93,7 +93,6 @@ jobs:
       - name: Test
         run: adb shell find /data/local/tmp/tests -name "*_tests" -maxdepth 1 -exec {} \\\;
 
- 
   VS_MSVC_14:
     runs-on: windows-latest
     defaults:
@@ -103,27 +102,32 @@ jobs:
       fail-fast: true
       matrix:
         build_type: [Debug, Release]
-        generator: ["Visual Studio 14 2015", "Visual Studio 15 2017", "Visual Studio 16 2019"]
+        generator: ["Visual Studio 14 2015"]
         arch: [x86, Win64]
-        gslcxx: ["14"]
+        gslcxx: [14]
+        vs_ver: [14]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create build directory
+      - id: Create build directory
         run: mkdir -p build
         working-directory: .
+        
+      - uses: microsoft/setup-msbuild@v1.0.0
+        id: Setting up MSBuild
+        with:
+          vs-version: ${{matrix.vs_ver}}
 
-      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+      - id: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
         run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
-      - name: Build CMake
+      - id: Build CMake
         run: cmake --build .
 
-      - name: Run Tests
+      - id: Run Tests
         run: ctest -j2
-
- 
-  VS_MSVC_17:
+  
+  VS_MSVC_15:
     runs-on: windows-latest
     defaults:
       run:
@@ -132,24 +136,65 @@ jobs:
       fail-fast: true
       matrix:
         build_type: [Debug, Release]
-        generator: ["Visual Studio 15 2017", "Visual Studio 16 2019"]
+        generator: ["Visual Studio 15 2017"]
         arch: [x86, Win64]
-        gslcxx: ["17"]
+        gslcxx: [14, 17]
+        vs_ver: [15.8]
 
     steps:
       - uses: actions/checkout@v2
-      - name: Create build directory
+      - id: Create build directory
         run: mkdir -p build
         working-directory: .
+        
+      - uses: microsoft/setup-msbuild@v1.0.0
+        id: Setting up MSBuild
+        with:
+          vs-version: ${{matrix.vs_ver}}
 
-      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+      - id: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
         run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
-      - name: Build CMake
+      - id: Build CMake
         run: cmake --build .
 
-      - name: Run Tests
+      - id: Run Tests
         run: ctest -j2
+  
+  VS_MSVC_16:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: build
+    strategy:
+      fail-fast: true
+      matrix:
+        build_type: [Debug, Release]
+        generator: ["Visual Studio 16 2019"]
+        arch: [x86, Win64]
+        gslcxx: [14, 17]
+        vs_ver: [16.5]
+
+    steps:
+      - uses: actions/checkout@v2
+      - id: Create build directory
+        run: mkdir -p build
+        working-directory: .
+        
+      - uses: microsoft/setup-msbuild@v1.0.0
+        id: Setting up MSBuild
+        with:
+          vs-version: ${{matrix.vs_ver}}
+
+      - id: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+        run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+
+      - id: Build CMake
+        run: cmake --build .
+
+      - id: Run Tests
+        run: ctest -j2 
+        
   # Clang:
   #   runs-on: ubuntu-latest
   #   defaults:
