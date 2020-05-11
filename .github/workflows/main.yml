@@ -109,7 +109,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - id: Create build directory
+      - name: Create build directory
         run: mkdir -p build
         working-directory: .
         
@@ -143,7 +143,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - id: Create build directory
+      - name: Create build directory
         run: mkdir -p build
         working-directory: .
         
@@ -177,7 +177,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - id: Create build directory
+      - name: Create build directory
         run: mkdir -p build
         working-directory: .
         
