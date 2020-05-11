@@ -114,7 +114,7 @@ jobs:
         working-directory: .
         
       - uses: microsoft/setup-msbuild@v1.0.0
-        id: Setting up MSBuild
+        name: Setting up MSBuild
         with:
           vs-version: ${{matrix.vs_ver}}
 
@@ -148,7 +148,7 @@ jobs:
         working-directory: .
         
       - uses: microsoft/setup-msbuild@v1.0.0
-        id: Setting up MSBuild
+        name: Setting up MSBuild
         with:
           vs-version: ${{matrix.vs_ver}}
 
@@ -182,7 +182,7 @@ jobs:
         working-directory: .
         
       - uses: microsoft/setup-msbuild@v1.0.0
-        id: Setting up MSBuild
+        name: Setting up MSBuild
         with:
           vs-version: ${{matrix.vs_ver}}
 
