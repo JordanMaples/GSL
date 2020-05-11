@@ -118,13 +118,13 @@ jobs:
         with:
           vs-version: ${{matrix.vs_ver}}
 
-      - id: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
         run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
-      - id: Build CMake
+      - name: Build CMake
         run: cmake --build .
 
-      - id: Run Tests
+      - name: Run Tests
         run: ctest -j2
   
   VS_MSVC_15:
@@ -152,13 +152,13 @@ jobs:
         with:
           vs-version: ${{matrix.vs_ver}}
 
-      - id: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
         run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
-      - id: Build CMake
+      - name: Build CMake
         run: cmake --build .
 
-      - id: Run Tests
+      - name: Run Tests
         run: ctest -j2
   
   VS_MSVC_16:
@@ -186,13 +186,13 @@ jobs:
         with:
           vs-version: ${{matrix.vs_ver}}
 
-      - id: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
         run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
-      - id: Build CMake
+      - name: Build CMake
         run: cmake --build .
 
-      - id: Run Tests
+      - name: Run Tests
         run: ctest -j2 
         
   # Clang:
