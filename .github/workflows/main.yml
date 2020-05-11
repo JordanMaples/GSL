@@ -114,7 +114,7 @@ jobs:
         working-directory: .
 
       - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
-        run: cmake -G ${{matrix.generator}} -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+        run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
       - name: Build CMake
         run: cmake --build .
@@ -143,7 +143,7 @@ jobs:
         working-directory: .
 
       - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
-        run: cmake -G ${{matrix.generator}} -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+        run: cmake -G "${{matrix.generator}}" -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
       - name: Build CMake
         run: cmake --build .
