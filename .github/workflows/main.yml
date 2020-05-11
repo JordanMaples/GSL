@@ -93,7 +93,8 @@ jobs:
       - name: Test
         run: adb shell find /data/local/tmp/tests -name "*_tests" -maxdepth 1 -exec {} \\\;
 
-  MSVC:
+ 
+  VS_MSVC_C++14:
     runs-on: windows-latest
     defaults:
       run:
@@ -101,65 +102,18 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        cfg: |
-          - {
-              name: "MSVC 2015",
-              build_type: ["Debug", "Release"],
-              generator: "Visual Studio 14 2015",
-              arch: [x86, Win64],
-              cflags : "",
-              gsl_cxx: 14
-            }
-          - {
-              name: "MSVC 2015 w/ LLVM",
-              build_type: ["Debug", "Release"],
-              generator: "Ninja",
-              arch: "",
-              cflags: ["-m32", "-m64"],
-              stdver: 14
-            }
-          - {
-              name: "MSVC 2017",
-              build_type: ["Debug", "Release"],
-              generator: "Visual Studio 15 2017",
-              arch: [x86, Win64],
-              cflags : "",
-              stdver: [14, 17]
-            }
-          - {
-              name: "MSVC 2017 w/ LLVM",
-              build_type: ["Debug", "Release"],
-              generator: "Ninja",
-              arch: "",
-              cflags: ["-m32", "-m64"],
-              stdver: [14, 17]
-            }
-          - {
-              name: "MSVC 2019",
-              build_type: ["Debug", "Release"],
-              generator: "Visual Studio 16 2019",
-              arch: [x86, Win64],
-              cflags : "",
-              stdver: [14, 17]
-            }
-          - {
-              name: "MSVC 2019 w/ LLVM",
-              build_type: ["Debug", "Release"],
-              generator: "Ninja",
-              arch: "",
-              cflags: ["-m32", "-m64"],
-              stdver: [14, 17]
-            }
+        build_type: [Debug, Release]
+        generator: ["Visual Studio 14 2015", "Visual Studio 15 2017", "Visual Studio 16 2019"]
+        arch: [x86, Win64]
+        gslcxx: ["14"]
+
     steps:
       - uses: actions/checkout@v2
       - name: Create build directory
         run: mkdir -p build
         working-directory: .
 
-      - name: Configure ${{matrix.name}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
-        with:
-          CFLAGS: ${{matrix.cflags}}
-          CXXFLAGS: ${{matrix.cflags}}
+      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
         run: cmake -G ${{matrix.generator}} -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
 
       - name: Build CMake
@@ -168,6 +122,34 @@ jobs:
       - name: Run Tests
         run: ctest -j2
 
+ 
+  VS_MSVC_C++17:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: build
+    strategy:
+      fail-fast: true
+      matrix:
+        build_type: [Debug, Release]
+        generator: ["Visual Studio 15 2017", "Visual Studio 16 2019"]
+        arch: [x86, Win64]
+        gslcxx: ["17"]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Create build directory
+        run: mkdir -p build
+        working-directory: .
+
+      - name: Configure ${{matrix.generator}} ${{matrix.build_type}} with C++ ${{matrix.stdver}}
+        run: cmake -G ${{matrix.generator}} -DCMAKE_CXX_STANDARD=${{matrix.stdver}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} ..
+
+      - name: Build CMake
+        run: cmake --build .
+
+      - name: Run Tests
+        run: ctest -j2
   # Clang:
   #   runs-on: ubuntu-latest
   #   defaults:
