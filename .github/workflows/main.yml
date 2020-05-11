@@ -101,7 +101,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        cfg:
+        cfg: |
           - {
               name: "MSVC 2015",
               build_type: ["Debug", "Release"],
