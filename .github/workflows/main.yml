@@ -94,7 +94,7 @@ jobs:
         run: adb shell find /data/local/tmp/tests -name "*_tests" -maxdepth 1 -exec {} \\\;
 
  
-  VS_MSVC_C++14:
+  VS_MSVC_14:
     runs-on: windows-latest
     defaults:
       run:
@@ -123,7 +123,7 @@ jobs:
         run: ctest -j2
 
  
-  VS_MSVC_C++17:
+  VS_MSVC_17:
     runs-on: windows-latest
     defaults:
       run:
