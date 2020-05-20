@@ -343,15 +343,9 @@ namespace details
 
         constexpr extent_type() noexcept = default;
 
-        template <size_type Other>
-        constexpr extent_type(extent_type<Other> ext)
-        {
-            static_assert(Other == Ext,
-                          "Mismatch between fixed-size extent and size of initializing data.");
-            Expects(ext.size() == Ext);
-        }
+        explicit constexpr extent_type(extent_type<dynamic_extent>);
 
-        constexpr extent_type(size_type size) { Expects(size == Ext); }
+        explicit constexpr extent_type(size_type size) { Expects(size == Ext); }
 
         constexpr size_type size() const noexcept { return Ext; }
     };
@@ -376,6 +370,12 @@ namespace details
     private:
         size_type size_;
     };
+
+    template <std::size_t Ext>
+    constexpr extent_type<Ext>::extent_type(extent_type<dynamic_extent> ext)
+    {
+        Expects(ext.size() == Ext);
+    }
 
     template <class ElementType, std::size_t Extent, std::size_t Offset, std::size_t Count>
     struct calculate_subspan_type
