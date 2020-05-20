@@ -468,9 +468,9 @@ public:
 
     // NB: the SFINAE on these constructors uses .data() as an incomplete/imperfect proxy for the
     // requirement on Container to be a contiguous sequence container.
-    template <class Container,
+    template <std::size_t MyExtent = Extent, class Container,
               std::enable_if_t<
-                  Extent != dynamic_extent &&
+                  MyExtent != dynamic_extent &&
                   !details::is_span<Container>::value && !details::is_std_array<Container>::value &&
                   std::is_pointer<decltype(std::declval<Container&>().data())>::value &&
                   std::is_convertible<
@@ -479,9 +479,9 @@ public:
     constexpr explicit span(Container& cont) noexcept : span(cont.data(), cont.size())
     {}
 
-    template <class Container,
+    template <std::size_t MyExtent = Extent, class Container,
               std::enable_if_t<
-                  Extent == dynamic_extent &&
+                  MyExtent == dynamic_extent &&
                   !details::is_span<Container>::value && !details::is_std_array<Container>::value &&
                   std::is_pointer<decltype(std::declval<Container&>().data())>::value &&
                   std::is_convertible<
@@ -490,9 +490,9 @@ public:
     constexpr span(Container& cont) noexcept : span(cont.data(), cont.size())
     {}
 
-    template <class Container,
+    template <std::size_t MyExtent = Extent, class Container,
               std::enable_if_t<
-                  Extent != dynamic_extent &&
+                  MyExtent != dynamic_extent &&
                   std::is_const<element_type>::value && !details::is_span<Container>::value &&
                   !details::is_std_array<Container>::value &&
                   std::is_pointer<decltype(std::declval<const Container&>().data())>::value &&
@@ -502,9 +502,9 @@ public:
     constexpr explicit span(const Container& cont) noexcept : span(cont.data(), cont.size())
     {}
 
-    template <class Container,
+    template <std::size_t MyExtent = Extent, class Container,
               std::enable_if_t<
-                  Extent == dynamic_extent &&
+                  MyExtent == dynamic_extent &&
                   std::is_const<element_type>::value && !details::is_span<Container>::value &&
                   !details::is_std_array<Container>::value &&
                   std::is_pointer<decltype(std::declval<const Container&>().data())>::value &&
