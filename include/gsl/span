@@ -519,8 +519,7 @@ public:
     template <
         class OtherElementType, std::size_t OtherExtent, std::size_t MyExtent = Extent,
         std::enable_if_t<
-            !(MyExtent != dynamic_extent && OtherExtent == dynamic_extent) &&
-            (Extent == dynamic_extent || OtherExtent == dynamic_extent || Extent == OtherExtent) &&
+            (MyExtent == dynamic_extent || MyExtent == OtherExtent) &&
             details::is_allowed_element_type_conversion<OtherElementType, element_type>::value, int> = 0>
     constexpr span(const span<OtherElementType, OtherExtent>& other) noexcept
         : storage_(other.data(), details::extent_type<OtherExtent>(other.size()))
@@ -529,8 +528,7 @@ public:
     template <
         class OtherElementType, std::size_t OtherExtent, std::size_t MyExtent = Extent,
         std::enable_if_t<
-            (MyExtent != dynamic_extent && OtherExtent == dynamic_extent) &&
-            (Extent == dynamic_extent || OtherExtent == dynamic_extent || Extent == OtherExtent) &&
+            MyExtent != dynamic_extent && OtherExtent == dynamic_extent &&
             details::is_allowed_element_type_conversion<OtherElementType, element_type>::value, int> = 0>
     constexpr explicit span(const span<OtherElementType, OtherExtent>& other) noexcept
         : storage_(other.data(), details::extent_type<OtherExtent>(other.size()))
