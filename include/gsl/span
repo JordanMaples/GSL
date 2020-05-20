@@ -420,18 +420,18 @@ public:
     constexpr span() noexcept : storage_(nullptr, details::extent_type<0>())
     {}
 
-     template<std::size_t extent = Extent, std::enable_if_t<extent != gsl::dynamic_extent, int> = 0>
-    constexpr span(pointer ptr, size_type count) noexcept : storage_(ptr, count)
+    template<std::size_t extent = Extent, std::enable_if_t<extent != gsl::dynamic_extent, int> = 0>
+    constexpr explicit span(pointer ptr, size_type count) noexcept : storage_(ptr, count)
     {
         Expects(count == Extent);
     }
 
-     template<std::size_t extent = Extent, std::enable_if_t<extent == gsl::dynamic_extent, int> = 0>
-    constexpr explicit span(pointer ptr, size_type count) noexcept : storage_(ptr, count)
+    template<std::size_t extent = Extent, std::enable_if_t<extent == gsl::dynamic_extent, int> = 0>
+    constexpr span(pointer ptr, size_type count) noexcept : storage_(ptr, count)
     {}
 
     template<std::size_t extent = Extent, std::enable_if_t<extent != gsl::dynamic_extent, int> = 0>
-    constexpr span(pointer firstElem, pointer lastElem) noexcept
+    constexpr explicit span(pointer firstElem, pointer lastElem) noexcept
         : storage_(firstElem, static_cast<std::size_t>(lastElem - firstElem))
     {
         Expects(lastElem - firstElem == static_cast<difference_type>(Extent));
@@ -466,26 +466,51 @@ public:
         : storage_(KnownNotNull{arr.data()}, details::extent_type<N>())
     {}
 
-    // NB: the SFINAE here uses .data() as an incomplete/imperfect proxy for the requirement
-    // on Container to be a contiguous sequence container.
+    // NB: the SFINAE on these constructors uses .data() as an incomplete/imperfect proxy for the
+    // requirement on Container to be a contiguous sequence container.
     template <class Container,
-              class = std::enable_if_t<
+              std::enable_if_t<
+                  Extent != dynamic_extent &&
                   !details::is_span<Container>::value && !details::is_std_array<Container>::value &&
                   std::is_pointer<decltype(std::declval<Container&>().data())>::value &&
                   std::is_convertible<
                       std::remove_pointer_t<decltype(std::declval<Container&>().data())> (*)[],
-                      element_type (*)[]>::value>>
+                      element_type (*)[]>::value, int> = 0>
+    constexpr explicit span(Container& cont) noexcept : span(cont.data(), cont.size())
+    {}
+
+    template <class Container,
+              std::enable_if_t<
+                  Extent == dynamic_extent &&
+                  !details::is_span<Container>::value && !details::is_std_array<Container>::value &&
+                  std::is_pointer<decltype(std::declval<Container&>().data())>::value &&
+                  std::is_convertible<
+                      std::remove_pointer_t<decltype(std::declval<Container&>().data())> (*)[],
+                      element_type (*)[]>::value, int> = 0>
     constexpr span(Container& cont) noexcept : span(cont.data(), cont.size())
     {}
 
     template <class Container,
-              class = std::enable_if_t<
+              std::enable_if_t<
+                  Extent != dynamic_extent &&
                   std::is_const<element_type>::value && !details::is_span<Container>::value &&
                   !details::is_std_array<Container>::value &&
                   std::is_pointer<decltype(std::declval<const Container&>().data())>::value &&
                   std::is_convertible<std::remove_pointer_t<
                                           decltype(std::declval<const Container&>().data())> (*)[],
-                                      element_type (*)[]>::value>>
+                                      element_type (*)[]>::value, int> = 0>
+    constexpr explicit span(const Container& cont) noexcept : span(cont.data(), cont.size())
+    {}
+
+    template <class Container,
+              std::enable_if_t<
+                  Extent == dynamic_extent &&
+                  std::is_const<element_type>::value && !details::is_span<Container>::value &&
+                  !details::is_std_array<Container>::value &&
+                  std::is_pointer<decltype(std::declval<const Container&>().data())>::value &&
+                  std::is_convertible<std::remove_pointer_t<
+                                          decltype(std::declval<const Container&>().data())> (*)[],
+                                      element_type (*)[]>::value, int> = 0>
     constexpr span(const Container& cont) noexcept : span(cont.data(), cont.size())
     {}
 
@@ -519,7 +544,7 @@ public:
     constexpr span<element_type, Count> first() const noexcept
     {
         Expects(Count <= size());
-        return {data(), Count};
+        return span<element_type, Count>{data(), Count};
     }
 
     template <std::size_t Count>
@@ -529,7 +554,7 @@ public:
         constexpr span<element_type, Count> last() const noexcept
     {
         Expects(Count <= size());
-        return {data() + (size() - Count), Count};
+        return span<element_type, Count>{data() + (size() - Count), Count};
     }
 
     template <std::size_t Offset, std::size_t Count = dynamic_extent>
@@ -547,7 +572,7 @@ public:
     constexpr span<element_type, dynamic_extent> first(size_type count) const noexcept
     {
         Expects(count <= size());
-        return span<element_type>(data(), count);
+        return {data(), count};
     }
 
     constexpr span<element_type, dynamic_extent> last(size_type count) const noexcept
