@@ -164,6 +164,7 @@ steps:
   - script: |
       cd build
       ctest ./build -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+      cat ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
 
   - task: PublishTestResults@2
     inputs:
