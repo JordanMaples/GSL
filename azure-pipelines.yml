@@ -153,7 +153,7 @@ steps:
     name: Configure
     inputs:
       workingDirectory: build
-      cmakeArgs: '-DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
+      cmakeArgs: '-DCMAKE_CXX_STANDARD=$(GSL_CXX_STANDARD) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
 
   - task: CMake@1
     name: Build
@@ -163,7 +163,7 @@ steps:
 
   - script: |
       cd build
-      ctest ./build
+      ctest ./build -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
 
   - task: PublishTestResults@2
     inputs:
