@@ -163,12 +163,14 @@ steps:
 
   - script: |
       cd build
-      ctest ./build -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+      ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
       cat ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+    name: CTest
 
   - task: PublishTestResults@2
     inputs:
       testResultsFormat: cTest
+      failTaskOnFailedTests: true
 # jobs:
 #   - template: nix_build.yml
 #     parameters:
