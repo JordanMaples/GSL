@@ -45,31 +45,31 @@ strategy:
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Release'
 
-    # Previous g++
-    linux-current-gcc-previous-14-debug:
-      imageName: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++-9'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    linux-current-gcc-previous-14-release:
-      imageName: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++-9'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    linux-current-gcc-previous-17-debug:
-      imageName: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++-9'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    linux-current-gcc-previous-17-release:
-      imageName: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++-9'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # Previous g++
+    # linux-current-gcc-previous-14-debug:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'gcc'
+    #   CXX: 'g++-9'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # linux-current-gcc-previous-14-release:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'gcc'
+    #   CXX: 'g++-9'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # linux-current-gcc-previous-17-debug:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'gcc'
+    #   CXX: 'g++-9'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # linux-current-gcc-previous-17-release:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'gcc'
+    #   CXX: 'g++-9'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
     # Latest clang
     linux-current-clang-latest-14-debug:
@@ -98,30 +98,30 @@ strategy:
       BUILD_TYPE: 'Release'
 
     # Previous clang
-    linux-current-clang-previous-14-debug:
-      imageName: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++-10'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    linux-current-clang-laprevioustest-14-release:
-      imageName: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++-10'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    linux-current-clang-previous-17-debug:
-      imageName: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++-10'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    linux-current-clang-previous-17-release:
-      imageName: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++-10'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # linux-current-clang-previous-14-debug:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'clang'
+    #   CXX: 'clang++-10'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # linux-current-clang-laprevioustest-14-release:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'clang'
+    #   CXX: 'clang++-10'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # linux-current-clang-previous-17-debug:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'clang'
+    #   CXX: 'clang++-10'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # linux-current-clang-previous-17-release:
+    #   imageName: 'ubuntu-latest'
+    #   CC: 'clang'
+    #   CXX: 'clang++-10'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
 pool:
   vmImage: $(imageName)
@@ -149,14 +149,29 @@ steps:
       echo $(BUILD_TYPE)
       $(CXX) --version
 
+  - script: ls
+
   - task: CMake@1
+    name: Configure
     inputs:
       workingDirectory: build
       cmakeArgs: '-DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
+
+  - script: ls
+
   - task: CMake@1
+    name: Build
     inputs:
       workingDirectory: build
-      cmakeArgs: 'cmake --build . -E chdir ctest .'
+      cmakeArgs: 'cmake --build . '
+
+  - script: ls
+
+  - task: CMake@1
+    name: Test
+    inputs:
+      workingDirectory: build
+      cmakeArgs: 'cmake -E chdir ctest .'
 
   - task: PublishTestResults@2
     inputs:
