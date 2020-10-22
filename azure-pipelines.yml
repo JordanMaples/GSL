@@ -162,6 +162,7 @@ steps:
       cmakeArgs: '--build . '
 
   - script: |
+      cd build
       ctest ./build
 
   - task: PublishTestResults@2
