@@ -33,6 +33,7 @@ static constexpr char deathstring[] = "Expected Death";
 
 TEST(span_ext_test, make_span_from_pointer_length_constructor)
 {
+    EXPECT_TRUE(false);
     std::set_terminate([] {
         std::cerr << "Expected Death. from_pointer_length_constructor";
         std::abort();
