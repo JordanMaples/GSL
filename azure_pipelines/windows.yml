@@ -19,3 +19,6 @@ strategy:
 
 pool:
   vmImage: $(imageName)
+
+steps:
+  script: echo "hello world"
