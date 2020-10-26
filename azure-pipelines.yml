@@ -10,144 +10,109 @@ pr:
       - master
 
 strategy:
+  maxParallel: 10
   matrix:
-    # current g++
-    linux-current-gcc-14-debug:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    linux-current-gcc-14-release:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    linux-current-gcc-17-debug:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    linux-current-gcc-17-release:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
-
     # current clang
-    linux-current-clang-14-debug:
+    clang-current-14-debug:
       imageName: 'ubuntu-20.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Debug'
-    linux-current-clang-14-release:
+    clang-current-14-release:
       imageName: 'ubuntu-20.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Release'
-    linux-current-clang-17-debug:
+    clang-current-17-debug:
       imageName: 'ubuntu-20.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Debug'
-    linux-current-clang-17-release:
+    clang-current-17-release:
       imageName: 'ubuntu-20.04'
       CC: 'clang'
       CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
-
-    # previous g++
-    linux-previous-gcc-14-debug:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    linux-previous-gcc-14-release:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    linux-previous-gcc-17-debug:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    linux-previous-gcc-17-release:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Release'
 
     # previous clang
-    linux-previous-clang-14-debug:
+    clang-previous-14-debug:
       imageName: 'ubuntu-18.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Debug'
-    linux-previous-clang-14-release:
+    clang-previous-14-release:
       imageName: 'ubuntu-18.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Release'
-    linux-previous-clang-17-debug:
+    clang-previous-17-debug:
       imageName: 'ubuntu-18.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Debug'
-    linux-previous-clang-17-release:
+    clang-previous-17-release:
       imageName: 'ubuntu-18.04'
       CC: 'clang'
       CXX: 'clang++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Release'
 
-    # current xcode
-    xcode_latest_14_debug:
-      imageName: macOS-latest
+    # current g++
+    gcc-current-14-debug:
+      imageName: 'ubuntu-20.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Debug'
-    xcode_latest_14_release:
-      imageName: macOS-latest
+    gcc-current-14-release:
+      imageName: 'ubuntu-20.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Release'
-    xcode_latest_17_debug:
-      imageName: macOS-latest
+    gcc-current-17-debug:
+      imageName: 'ubuntu-20.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Debug'
-    xcode_latest_17_release:
-      imageName: macOS-latest
+    gcc-current-17-release:
+      imageName: 'ubuntu-20.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Release'
 
-    # previous xcode
-    xcode_previous_14_debug:
-      imageName: macOS-10.14
+    # previous g++
+    gcc-previous-14-debug:
+      imageName: 'ubuntu-18.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Debug'
-    xcode_previous_14_release:
-      imageName: macOS-10.14
+    gcc-previous-14-release:
+      imageName: 'ubuntu-18.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '14'
       BUILD_TYPE: 'Release'
-    xcode_previous_17_debug:
-      imageName: macOS-10.14
+    gcc-previous-17-debug:
+      imageName: 'ubuntu-18.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Debug'
-    xcode_previous_17_release:
-      imageName: macOS-10.14
+    gcc-previous-17-release:
+      imageName: 'ubuntu-18.04'
+      CC: 'gcc'
+      CXX: 'g++'
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Release'
 
@@ -187,6 +152,42 @@ strategy:
       GSL_CXX_STANDARD: '17'
       BUILD_TYPE: 'Release'
 
+    # current xcode
+    xcode_latest_14_debug:
+      imageName: macOS-latest
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Debug'
+    xcode_latest_14_release:
+      imageName: macOS-latest
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Release'
+    xcode_latest_17_debug:
+      imageName: macOS-latest
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Debug'
+    xcode_latest_17_release:
+      imageName: macOS-latest
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Release'
+
+    # previous xcode
+    xcode_previous_14_debug:
+      imageName: macOS-10.14
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Debug'
+    xcode_previous_14_release:
+      imageName: macOS-10.14
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Release'
+    xcode_previous_17_debug:
+      imageName: macOS-10.14
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Debug'
+    xcode_previous_17_release:
+      imageName: macOS-10.14
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Release'
+
 pool:
   vmImage: $(imageName)
 
@@ -203,9 +204,8 @@ steps:
       workingDirectory: build
       cmakeArgs: '--build . '
 
-  - script: |
-      cd build
-      ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+  - script: ctest . --output-on-failure --no-compress-output
     name: CTest
+    workingDirectory: build
     failOnStderr: true
 
