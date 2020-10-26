@@ -1,0 +1,185 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - master
+# CXX: 'g++'
+# CXX: 'g++-9'
+# CXX: 'clang++'
+# CXX: 'clang++-10'
+# GSL_CXX_STANDARD: '14'
+# GSL_CXX_STANDARD: '17'
+# BUILD_TYPE: 'Debug'
+# BUILD_TYPE: 'Release'
+
+strategy:
+  matrix:
+
+    # Current g++
+    linux-current-gcc-14-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:gcc-10
+    linux-current-gcc-14-release:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:gcc-10
+    linux-current-gcc-17-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:gcc-10
+    linux-current-gcc-17-release:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:gcc-10
+
+    # Current Clang
+    linux-current-clang-14-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:clang-11
+    linux-current-clang-14-release:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:clang-11
+    linux-current-clang-17-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:clang-11
+    linux-current-clang-17-release:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:clang-11
+
+    # Previous g++
+    linux-previous-gcc-14-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:gcc-9
+    linux-previous-gcc-14-release:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:gcc-9
+    linux-previous-gcc-17-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:gcc-9
+    linux-previous-gcc-17-release:
+      imageName: 'ubuntu-latest'
+      CC: 'gcc'
+      CXX: 'g++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:gcc-9
+
+    linux-previous-clang-14-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:clang-10
+    linux-previous-clang-14-release:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '14'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:clang-10
+    linux-previous-clang-17-debug:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Debug'
+      containerImage: sloppyjaconda/gsl_validation:clang-10
+    linux-previous-clang-17-release:
+      imageName: 'ubuntu-latest'
+      CC: 'clang'
+      CXX: 'clang++'
+      GSL_CXX_STANDARD: '17'
+      BUILD_TYPE: 'Release'
+      containerImage: sloppyjaconda/gsl_validation:clang-10
+
+pool:
+  vmImage: $(imageName)
+
+container: $(containerImage)
+
+steps:
+  - script: |
+      export CXX $(CXX)
+      export CC $(CC)
+    condition: eq($(imageName), 'ubuntu-latest')
+
+  - script: |
+      echo $(imageName)
+      echo $(CXX)
+      echo $(GSL_CXX_STANDARD)
+      echo $(BUILD_TYPE)
+      $(CXX) --version
+
+  - task: CMake@1
+    name: Configure
+    inputs:
+      workingDirectory: build
+      cmakeArgs: '-DCMAKE_CXX_STANDARD=$(GSL_CXX_STANDARD) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
+
+  - task: CMake@1
+    name: Build
+    inputs:
+      workingDirectory: build
+      cmakeArgs: '--build . '
+
+  - script: |
+      cd build
+      ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+    name: CTest
+    failOnStderr: true
+
+# jobs:
+#   - template: nix_build.yml
+#     parameters:
+#       name: Linux Current
+#       vmImage: 'ubuntu-latest'
+#       conf: 'Debug'
+#       GSL_CXX_STANDARD: '14'
+#       CXX: g++
