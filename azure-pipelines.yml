@@ -142,7 +142,8 @@ strategy:
 pool:
   vmImage: $(imageName)
 
-container: $(containerImage)
+container:
+  image: $(containerImage)
 
 steps:
   - script: |
