@@ -12,145 +12,145 @@ pr:
 strategy:
   maxParallel: 10
   matrix:
-    # current clang
-    clang-current-14-debug:
-      imageName: 'ubuntu-20.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    clang-current-14-release:
-      imageName: 'ubuntu-20.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    clang-current-17-debug:
-      imageName: 'ubuntu-20.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    clang-current-17-release:
-      imageName: 'ubuntu-20.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # current clang
+    # clang-current-14-debug:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # clang-current-14-release:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # clang-current-17-debug:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # clang-current-17-release:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
-    # previous clang
-    clang-previous-14-debug:
-      imageName: 'ubuntu-18.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    clang-previous-14-release:
-      imageName: 'ubuntu-18.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    clang-previous-17-debug:
-      imageName: 'ubuntu-18.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    clang-previous-17-release:
-      imageName: 'ubuntu-18.04'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # previous clang
+    # clang-previous-14-debug:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # clang-previous-14-release:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # clang-previous-17-debug:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # clang-previous-17-release:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'clang'
+    #   CXX: 'clang++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
-    # current g++
-    gcc-current-14-debug:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    gcc-current-14-release:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    gcc-current-17-debug:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    gcc-current-17-release:
-      imageName: 'ubuntu-20.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # current g++
+    # gcc-current-14-debug:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # gcc-current-14-release:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # gcc-current-17-debug:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # gcc-current-17-release:
+    #   imageName: 'ubuntu-20.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
-    # previous g++
-    gcc-previous-14-debug:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    gcc-previous-14-release:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    gcc-previous-17-debug:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    gcc-previous-17-release:
-      imageName: 'ubuntu-18.04'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # previous g++
+    # gcc-previous-14-debug:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # gcc-previous-14-release:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # gcc-previous-17-debug:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # gcc-previous-17-release:
+    #   imageName: 'ubuntu-18.04'
+    #   CC: 'gcc'
+    #   CXX: 'g++'
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
-    # current vs
-    vs_latest_14_debug:
-      imageName: windows-latest
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    vs_latest_14_release:
-      imageName: windows-latest
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    vs_latest_17_debug:
-      imageName: windows-latest
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    vs_latest_17_release:
-      imageName: windows-latest
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # current vs
+    # vs_latest_14_debug:
+    #   imageName: windows-latest
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # vs_latest_14_release:
+    #   imageName: windows-latest
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # vs_latest_17_debug:
+    #   imageName: windows-latest
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # vs_latest_17_release:
+    #   imageName: windows-latest
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
-    # previous vs
-    vs_previous_14_debug:
-      imageName: vs2017-win2016
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-    vs_previous_14_release:
-      imageName: vs2017-win2016
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-    vs_previous_17_debug:
-      imageName: vs2017-win2016
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-    vs_previous_17_release:
-      imageName: vs2017-win2016
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
+    # # previous vs
+    # vs_previous_14_debug:
+    #   imageName: vs2017-win2016
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Debug'
+    # vs_previous_14_release:
+    #   imageName: vs2017-win2016
+    #   GSL_CXX_STANDARD: '14'
+    #   BUILD_TYPE: 'Release'
+    # vs_previous_17_debug:
+    #   imageName: vs2017-win2016
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Debug'
+    # vs_previous_17_release:
+    #   imageName: vs2017-win2016
+    #   GSL_CXX_STANDARD: '17'
+    #   BUILD_TYPE: 'Release'
 
     # current xcode
     xcode_latest_14_debug:
