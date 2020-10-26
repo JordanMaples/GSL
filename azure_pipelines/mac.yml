@@ -1,0 +1,21 @@
+strategy:
+  matrix:
+    xcode_latest_14_debug:
+      imageName: macOS-latest
+    xcode_latest_14_release:
+      imageName: macOS-latest
+    xcode_latest_17_debug:
+      imageName: macOS-latest
+    xcode_latest_17_release:
+      imageName: macOS-latest
+    xcode_previous_14_debug:
+      imageName: macOS-10.14
+    xcode_previous_14_release:
+      imageName: macOS-10.14
+    xcode_previous_17_debug:
+      imageName: macOS-10.14
+    xcode_previous_17_release:
+      imageName: macOS-10.14
+
+pool:
+  vmImage: $(imageName)
