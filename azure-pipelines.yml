@@ -149,7 +149,7 @@ steps:
   - script: |
       export CXX $(CXX)
       export CC $(CC)
-    condition: eq($(imageName), 'ubuntu-latest')
+    condition: eq('$(imageName)', 'ubuntu-latest')
 
   - script: |
       echo $(imageName)
