@@ -190,22 +190,14 @@
 pr:
   autoCancel: true
 
-variables:
-- group: gcc
-- name: CC
-  value: gcc
-- name: CXX
-  value: g++
-
-- group: clang
-- name: CC
-  value: clang
-- name: CXX
-  value: clang++
-
 stages:
 - stage: build_GCC
   dependsOn: []
+  variables:
+  - name: CC
+    value: gcc
+  - name: CXX
+    value: g++
   jobs:
   - job:
     displayName: Validate GCC latest
@@ -218,7 +210,6 @@ stages:
       value: '14'
     - name: BUILD_TYPE
       value: 'Debug'
-    - group: gcc
     steps:
     - template: ./pipelines/steps.yml
 
@@ -232,6 +223,11 @@ stages:
   #   - template: ./pipelines/steps.yml
 - stage: build_Clang
   dependsOn: []
+  variables:
+  - name: CC
+    value: clang
+  - name: CXX
+    value: clang++
   jobs:
   - job:
     displayName: Validate Clang latest
@@ -244,7 +240,6 @@ stages:
       value: '14'
     - name: BUILD_TYPE
       value: 'Debug'
-    - group: clang
     steps:
     - template: ./pipelines/steps.yml
   # - job:
