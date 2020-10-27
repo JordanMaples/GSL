@@ -15,3 +15,4 @@ steps:
       cd build
       ctest ./build --output-on-failure --no-compress-output
     name: CTest
+    failOnStderr: true
