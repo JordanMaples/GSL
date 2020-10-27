@@ -187,9 +187,12 @@
 #       ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
 #     name: CTest
 #     failOnStderr: true
+trigger:
+  - master
 pr:
   autoCancel: true
 
+# GCC
 stages:
 - stage: GCC
   dependsOn: []
@@ -207,18 +210,18 @@ stages:
       image: sloppyjaconda/gsl_validation:gcc-10
     strategy:
       matrix:
-        14dbg:
+        14_debug:
           GSL_CXX_STANDARD: '14'
           BUILD_TYPE: 'Debug'
-        14rel:
-          GSL_CXX_STANDARD: '14'
-          BUILD_TYPE: 'Release'
-        17dbg:
-          GSL_CXX_STANDARD: '17'
-          BUILD_TYPE: 'Debug'
-        17rel:
-          GSL_CXX_STANDARD: '17'
-          BUILD_TYPE: 'Release'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
     continueOnError: false
     steps:
     - template: ./pipelines/steps.yml
@@ -229,29 +232,23 @@ stages:
       image: sloppyjaconda/gsl_validation:gcc-9
     strategy:
       matrix:
-        14dbg:
+        14_debug:
           GSL_CXX_STANDARD: '14'
           BUILD_TYPE: 'Debug'
-        14rel:
-          GSL_CXX_STANDARD: '14'
-          BUILD_TYPE: 'Release'
-        17dbg:
-          GSL_CXX_STANDARD: '17'
-          BUILD_TYPE: 'Debug'
-        17rel:
-          GSL_CXX_STANDARD: '17'
-          BUILD_TYPE: 'Release'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
     continueOnError: false
     steps:
     - template: ./pipelines/steps.yml
-  # - job:
-  #   displayName: Validate GCC previous
-  #   pool:
-  #     vmImage: ubuntu-latest
-  #   container:
-  #     image: sloppyjaconda/gsl_validation:gcc-9
-  #   steps:
-  #   - template: ./pipelines/steps.yml
+
+# Clang
 - stage: Clang
   dependsOn: []
   variables:
@@ -266,38 +263,134 @@ stages:
     displayName: Validate Clang latest
     container:
       image: sloppyjaconda/gsl_validation:clang-11
-    variables:
-    - name: GSL_CXX_STANDARD
-      value: '14'
-    - name: BUILD_TYPE
-      value: 'Debug'
+    strategy:
+      matrix:
+        14_debug:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
+    continueOnError: false
     steps:
     - template: ./pipelines/steps.yml
-  # - job:
-  #   displayName:  Validate Clang previous
-  #   pool:
-  #     vmImage: ubuntu-latest
-  #   container:
-  #       image: sloppyjaconda/gsl_validation:clang-11
-  #   steps:
-  #   - template: ./pipelines/steps.yml
 
+  - job:
+    displayName: Validate Clang previous
+    container:
+      image: sloppyjaconda/gsl_validation:clang-10
+    strategy:
+      matrix:
+        14_debug:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
+    continueOnError: false
+    steps:
+    - template: ./pipelines/steps.yml
+
+# MSVC
 - stage: MSVC
   dependsOn: []
   jobs:
   - job:
-    displayName: Validate VS latest
+    displayName: Validate MSVC latest
     pool:
       vmImage: windows-latest
-    variables:
-    - name: GSL_CXX_STANDARD
-      value: '14'
+    strategy:
+      matrix:
+        14_debug:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
     steps:
     - template: ./pipelines/steps.yml
-  # - job:
-  #   displayName:  Validate VS previous
 
-  # - job:
-  #   displayName: Validate Apple-Clang latest
-  # - job:
-  #   displayName: Validate Apple-Clang previous
+  - job:
+    displayName: Validate MSVC previous
+    pool:
+      vmImage: vs2017-win2016
+    strategy:
+      matrix:
+        14_debug:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
+    steps:
+    - template: ./pipelines/steps.yml
+
+# Apple-Clang
+- stage: Apple-Clang
+  dependsOn: []
+  jobs:
+  - job:
+    displayName: Validate Apple-Clang latest
+    pool:
+      vmImage: macos-latest
+    strategy:
+      matrix:
+        14_debug:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
+    steps:
+    - template: ./pipelines/steps.yml
+
+  - job:
+    displayName: Validate Apple-Clang previous
+    pool:
+      vmImage: macOS-10.14
+    strategy:
+      matrix:
+        14_debug:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        # 14_release:
+        #   GSL_CXX_STANDARD: '14'
+        #   BUILD_TYPE: 'Release'
+        # 17_debug:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Debug'
+        # 17_release:
+        #   GSL_CXX_STANDARD: '17'
+        #   BUILD_TYPE: 'Release'
+    steps:
+    - template: ./pipelines/steps.yml
