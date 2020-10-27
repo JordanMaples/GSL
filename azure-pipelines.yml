@@ -193,7 +193,7 @@ pr:
 
 
 stages:
-- stage: build GCC
+- stage: build_GCC
   jobs:
   - job:
     displayName: Validate GCC latest
@@ -217,7 +217,7 @@ stages:
   #     image: sloppyjaconda/gsl_validation:gcc-9
   #   steps:
   #   - template: ./pipelines/steps.yml
-- stage: build Clang
+- stage: build_Clang
   jobs:
   - job:
     displayName:  Validate Clang latest
