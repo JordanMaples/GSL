@@ -190,8 +190,6 @@
 pr:
   autoCancel: true
 
-
-
 stages:
 - stage: build_GCC
   jobs:
@@ -206,6 +204,10 @@ stages:
       value: '14'
     - name: BUILD_TYPE
       value: 'Debug'
+    - name: CC
+      value: gcc
+    - name: CXX
+      value: g++
     steps:
     - template: ./pipelines/steps.yml
 
@@ -230,6 +232,10 @@ stages:
       value: '14'
     - name: BUILD_TYPE
       value: 'Debug'
+    - name: CC
+      value: clang
+    - name: CXX
+      value: clang++
     steps:
     - template: ./pipelines/steps.yml
   # - job:
