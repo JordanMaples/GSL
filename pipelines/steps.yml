@@ -13,6 +13,5 @@ steps:
 
   - script: |
       cd build
-      ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+      ctest ./build --output-on-failure --no-compress-output
     name: CTest
-    failOnStderr: true
