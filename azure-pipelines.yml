@@ -190,8 +190,22 @@
 pr:
   autoCancel: true
 
+variables:
+- group: gcc
+- name: CC
+  value: gcc
+- name: CXX
+  value: g++
+
+- group: clang
+- name: CC
+  value: clang
+- name: CXX
+  value: clang++
+
 stages:
 - stage: build_GCC
+  dependsOn: []
   jobs:
   - job:
     displayName: Validate GCC latest
@@ -204,10 +218,7 @@ stages:
       value: '14'
     - name: BUILD_TYPE
       value: 'Debug'
-    - name: CC
-      value: gcc
-    - name: CXX
-      value: g++
+    - group: gcc
     steps:
     - template: ./pipelines/steps.yml
 
@@ -220,9 +231,10 @@ stages:
   #   steps:
   #   - template: ./pipelines/steps.yml
 - stage: build_Clang
+  dependsOn: []
   jobs:
   - job:
-    displayName:  Validate Clang latest
+    displayName: Validate Clang latest
     pool:
       vmImage: ubuntu-latest
     container:
@@ -232,10 +244,7 @@ stages:
       value: '14'
     - name: BUILD_TYPE
       value: 'Debug'
-    - name: CC
-      value: clang
-    - name: CXX
-      value: clang++
+    - group: clang
     steps:
     - template: ./pipelines/steps.yml
   # - job:
@@ -247,8 +256,15 @@ stages:
   #   steps:
   #   - template: ./pipelines/steps.yml
 
-  # - job:
-  #   displayName:  Validate VS latest
+- stage: build_vs
+  dependsOn: []
+  jobs:
+  - job:
+    pool:
+      vmImage: windows-latest
+    displayName: Validate VS latest
+    steps:
+    - template: ./pipelines/steps.yml
   # - job:
   #   displayName:  Validate VS previous
 
