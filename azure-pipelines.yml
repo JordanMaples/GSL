@@ -189,16 +189,23 @@
 #     failOnStderr: true
 pr:
   autoCancel: true
-stages:
-- stage: build
-  jobs:
 
+
+
+stages:
+- stage: build GCC
+  jobs:
   - job:
     displayName: Validate GCC latest
     pool:
       vmImage: 'ubuntu-latest'
     container:
       image: sloppyjaconda/gsl_validation:gcc-10
+    variables:
+    - name: GSL_CXX_STANDARD
+      value: '14'
+    - name: BUILD_TYPE
+      value: 'Debug'
     steps:
     - template: ./pipelines/steps.yml
 
@@ -210,15 +217,21 @@ stages:
   #     image: sloppyjaconda/gsl_validation:gcc-9
   #   steps:
   #   - template: ./pipelines/steps.yml
-
-  # - job:
-  #   displayName:  Validate Clang latest
-  #   pool:
-  #     vmImage: ubuntu-latest
-  #   container:
-  #     image: sloppyjaconda/gsl_validation:clang-11
-  #   steps:
-  #   - template: ./pipelines/steps.yml
+- stage: build Clang
+  jobs:
+  - job:
+    displayName:  Validate Clang latest
+    pool:
+      vmImage: ubuntu-latest
+    container:
+      image: sloppyjaconda/gsl_validation:clang-11
+    variables:
+    - name: GSL_CXX_STANDARD
+      value: '14'
+    - name: BUILD_TYPE
+      value: 'Debug'
+    steps:
+    - template: ./pipelines/steps.yml
   # - job:
   #   displayName:  Validate Clang previous
   #   pool:
