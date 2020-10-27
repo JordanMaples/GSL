@@ -187,8 +187,7 @@
 #       ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
 #     name: CTest
 #     failOnStderr: true
-trigger:
-  - master
+
 pr:
   autoCancel: true
 
@@ -350,7 +349,7 @@ stages:
     - template: ./pipelines/steps.yml
 
 # Apple-Clang
-- stage: Apple-Clang
+- stage: Apple_Clang
   dependsOn: []
   jobs:
   - job:
