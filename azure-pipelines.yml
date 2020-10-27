@@ -1,190 +1,239 @@
-trigger:
-  branches:
-    include:
-      - master
+# trigger:
+#   branches:
+#     include:
+#       - master
 
+# pr:
+#   autoCancel: true
+#   branches:
+#     include:
+#       - master
+
+# strategy:
+#   matrix:
+#     # Current g++
+#     linux-current-gcc-14-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-10
+#     linux-current-gcc-14-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-10
+#     linux-current-gcc-17-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-10
+#     linux-current-gcc-17-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-10
+
+#     # Current Clang
+#     linux-current-clang-14-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:clang-11
+#     linux-current-clang-14-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:clang-11
+#     linux-current-clang-17-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:clang-11
+#     linux-current-clang-17-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:clang-11
+
+#     # Previous g++
+#     linux-previous-gcc-14-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-9
+#     linux-previous-gcc-14-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-9
+#     linux-previous-gcc-17-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-9
+#     linux-previous-gcc-17-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'gcc'
+#       CXX: 'g++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:gcc-9
+
+#     linux-previous-clang-14-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:clang-10
+#     linux-previous-clang-14-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '14'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:clang-10
+#     linux-previous-clang-17-debug:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Debug'
+#       containerImage: sloppyjaconda/gsl_validation:clang-10
+#     linux-previous-clang-17-release:
+#       vmImage: 'ubuntu-latest'
+#       CC: 'clang'
+#       CXX: 'clang++'
+#       GSL_CXX_STANDARD: '17'
+#       BUILD_TYPE: 'Release'
+#       containerImage: sloppyjaconda/gsl_validation:clang-10
+
+#     xcode_latest_14_debug:
+#       imageName: macOS-latest
+#     xcode_latest_14_release:
+#       imageName: macOS-latest
+#     xcode_latest_17_debug:
+#       imageName: macOS-latest
+#     xcode_latest_17_release:
+#       imageName: macOS-latest
+#     xcode_previous_14_debug:
+#       imageName: macOS-10.14
+#     xcode_previous_14_release:
+#       imageName: macOS-10.14
+#     xcode_previous_17_debug:
+#       imageName: macOS-10.14
+#     xcode_previous_17_release:
+#       imageName: macOS-10.14
+#     vs_latest_14_debug:
+#       imageName: windows-latest
+#     vs_latest_14_release:
+#       imageName: windows-latest
+#     vs_latest_17_debug:
+#       imageName: windows-latest
+#     vs_latest_17_release:
+#       imageName: windows-latest
+#     vs_previous_14_debug:
+#       imageName: vs2017-win2016
+#     vs_previous_14_release:
+#       imageName: vs2017-win2016
+#     vs_previous_17_debug:
+#       imageName: vs2017-win2016
+#     vs_previous_17_release:
+#       imageName: vs2017-win2016
+
+# pool:
+#   vmImage: $(imageName)
+
+# container:
+#   image: $(containerImage)
+
+# steps:
+#   - task: CMake@1
+#     name: Configure
+#     inputs:
+#       workingDirectory: build
+#       cmakeArgs: '-DCMAKE_CXX_STANDARD=$(GSL_CXX_STANDARD) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
+
+#   - task: CMake@1
+#     name: Build
+#     inputs:
+#       workingDirectory: build
+#       cmakeArgs: '--build . '
+
+#   - script: |
+#       cd build
+#       ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+#     name: CTest
+#     failOnStderr: true
 pr:
   autoCancel: true
-  branches:
-    include:
-      - master
+stages:
+- stage: build
+  jobs:
 
-strategy:
-  matrix:
-    # Current g++
-    linux-current-gcc-14-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:gcc-10
-    linux-current-gcc-14-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:gcc-10
-    linux-current-gcc-17-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:gcc-10
-    linux-current-gcc-17-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:gcc-10
+  - job:
+    displayName: Validate GCC latest
+    pool:
+      name: ubuntu-latest
+    container:
+      image: sloppyjaconda/gsl_validation:gcc-10
+    steps:
+    - template: ./pipelines/steps.yml
 
-    # Current Clang
-    linux-current-clang-14-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:clang-11
-    linux-current-clang-14-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:clang-11
-    linux-current-clang-17-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:clang-11
-    linux-current-clang-17-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:clang-11
+  # - job:
+  #   displayName: Validate GCC previous
+  #   pool:
+  #     name: ubuntu-latest
+  #   container:
+  #     image: sloppyjaconda/gsl_validation:gcc-9
+  #   steps:
+  #   - template: ./pipelines/steps.yml
 
-    # Previous g++
-    linux-previous-gcc-14-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:gcc-9
-    linux-previous-gcc-14-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:gcc-9
-    linux-previous-gcc-17-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:gcc-9
-    linux-previous-gcc-17-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'gcc'
-      CXX: 'g++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:gcc-9
+  # - job:
+  #   displayName:  Validate Clang latest
+  #   pool:
+  #     name: ubuntu-latest
+  #   container:
+  #     image: sloppyjaconda/gsl_validation:clang-11
+  #   steps:
+  #   - template: ./pipelines/steps.yml
+  # - job:
+  #   displayName:  Validate Clang previous
+  #   pool:
+  #     name: ubuntu-latest
+  #   container:
+  #       image: sloppyjaconda/gsl_validation:clang-11
+  #   steps:
+  #   - template: ./pipelines/steps.yml
 
-    linux-previous-clang-14-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:clang-10
-    linux-previous-clang-14-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '14'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:clang-10
-    linux-previous-clang-17-debug:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Debug'
-      containerImage: sloppyjaconda/gsl_validation:clang-10
-    linux-previous-clang-17-release:
-      vmImage: 'ubuntu-latest'
-      CC: 'clang'
-      CXX: 'clang++'
-      GSL_CXX_STANDARD: '17'
-      BUILD_TYPE: 'Release'
-      containerImage: sloppyjaconda/gsl_validation:clang-10
+  # - job:
+  #   displayName:  Validate VS latest
+  # - job:
+  #   displayName:  Validate VS previous
 
-    xcode_latest_14_debug:
-      imageName: macOS-latest
-    xcode_latest_14_release:
-      imageName: macOS-latest
-    xcode_latest_17_debug:
-      imageName: macOS-latest
-    xcode_latest_17_release:
-      imageName: macOS-latest
-    xcode_previous_14_debug:
-      imageName: macOS-10.14
-    xcode_previous_14_release:
-      imageName: macOS-10.14
-    xcode_previous_17_debug:
-      imageName: macOS-10.14
-    xcode_previous_17_release:
-      imageName: macOS-10.14
-    vs_latest_14_debug:
-      imageName: windows-latest
-    vs_latest_14_release:
-      imageName: windows-latest
-    vs_latest_17_debug:
-      imageName: windows-latest
-    vs_latest_17_release:
-      imageName: windows-latest
-    vs_previous_14_debug:
-      imageName: vs2017-win2016
-    vs_previous_14_release:
-      imageName: vs2017-win2016
-    vs_previous_17_debug:
-      imageName: vs2017-win2016
-    vs_previous_17_release:
-      imageName: vs2017-win2016
-
-pool:
-  vmImage: $(imageName)
-
-container:
-  image: $(containerImage)
-
-steps:
-  - task: CMake@1
-    name: Configure
-    inputs:
-      workingDirectory: build
-      cmakeArgs: '-DCMAKE_CXX_STANDARD=$(GSL_CXX_STANDARD) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
-
-  - task: CMake@1
-    name: Build
-    inputs:
-      workingDirectory: build
-      cmakeArgs: '--build . '
-
-  - script: |
-      cd build
-      ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
-    name: CTest
-    failOnStderr: true
-
+  # - job:
+  #   displayName: Validate Apple-Clang latest
+  # - job:
+  #   displayName: Validate Apple-Clang previous

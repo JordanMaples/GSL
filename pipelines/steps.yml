@@ -1,0 +1,18 @@
+steps:
+  - task: CMake@1
+    name: Configure
+    inputs:
+      workingDirectory: build
+      cmakeArgs: '-DCMAKE_CXX_STANDARD=$(GSL_CXX_STANDARD) -DCMAKE_BUILD_TYPE=$(BUILD_TYPE) .. '
+
+  - task: CMake@1
+    name: Build
+    inputs:
+      workingDirectory: build
+      cmakeArgs: '--build . '
+
+  - script: |
+      cd build
+      ctest ./build --output-on-failure --no-compress-output -O ./TEST-$(CXX)_$(BUILD_TYPE)_$(GSL_CXX_STANDARD).xml
+    name: CTest
+    failOnStderr: true
