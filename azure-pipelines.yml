@@ -196,7 +196,7 @@ stages:
   - job:
     displayName: Validate GCC latest
     pool:
-      name: ubuntu-latest
+      name: 'ubuntu-latest'
     container:
       image: sloppyjaconda/gsl_validation:gcc-10
     steps:
