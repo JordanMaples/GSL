@@ -191,28 +191,59 @@ pr:
   autoCancel: true
 
 stages:
-- stage: build_GCC
+- stage: GCC
   dependsOn: []
   variables:
   - name: CC
     value: gcc
   - name: CXX
     value: g++
+  pool:
+    vmImage: 'ubuntu-latest'
   jobs:
   - job:
     displayName: Validate GCC latest
-    pool:
-      vmImage: 'ubuntu-latest'
     container:
       image: sloppyjaconda/gsl_validation:gcc-10
-    variables:
-    - name: GSL_CXX_STANDARD
-      value: '14'
-    - name: BUILD_TYPE
-      value: 'Debug'
+    strategy:
+      matrix:
+        14dbg:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        14rel:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Release'
+        17dbg:
+          GSL_CXX_STANDARD: '17'
+          BUILD_TYPE: 'Debug'
+        17rel:
+          GSL_CXX_STANDARD: '17'
+          BUILD_TYPE: 'Release'
+    continueOnError: false
     steps:
     - template: ./pipelines/steps.yml
 
+  - job:
+    displayName: Validate GCC Previous
+    container:
+      image: sloppyjaconda/gsl_validation:gcc-9
+    strategy:
+      matrix:
+        14dbg:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Debug'
+        14rel:
+          GSL_CXX_STANDARD: '14'
+          BUILD_TYPE: 'Release'
+        17dbg:
+          GSL_CXX_STANDARD: '17'
+          BUILD_TYPE: 'Debug'
+        17rel:
+          GSL_CXX_STANDARD: '17'
+          BUILD_TYPE: 'Release'
+    continueOnError: false
+    steps:
+    - template: ./pipelines/steps.yml
   # - job:
   #   displayName: Validate GCC previous
   #   pool:
@@ -221,18 +252,18 @@ stages:
   #     image: sloppyjaconda/gsl_validation:gcc-9
   #   steps:
   #   - template: ./pipelines/steps.yml
-- stage: build_Clang
+- stage: Clang
   dependsOn: []
   variables:
   - name: CC
     value: clang
   - name: CXX
     value: clang++
+  pool:
+    vmImage: ubuntu-latest
   jobs:
   - job:
     displayName: Validate Clang latest
-    pool:
-      vmImage: ubuntu-latest
     container:
       image: sloppyjaconda/gsl_validation:clang-11
     variables:
@@ -251,13 +282,16 @@ stages:
   #   steps:
   #   - template: ./pipelines/steps.yml
 
-- stage: build_vs
+- stage: MSVC
   dependsOn: []
   jobs:
   - job:
+    displayName: Validate VS latest
     pool:
       vmImage: windows-latest
-    displayName: Validate VS latest
+    variables:
+    - name: GSL_CXX_STANDARD
+      value: '14'
     steps:
     - template: ./pipelines/steps.yml
   # - job:
