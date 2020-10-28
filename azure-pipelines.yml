@@ -1,6 +1,3 @@
-pr:
-  autoCancel: true
-
 variables:
 - name: linux-latest
   value: 'ubuntu-20.04'
@@ -28,11 +25,11 @@ stages:
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate GCC latest'
-      imageName: $(linux-latest)
+      imageName: ${{variables.linux-latest}}
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate GCC Previous'
-      imageName: $(ubuntu-previous)
+      imageName: ${{variables.linux-previous}}
 
 # Clang
 - stage: Clang
@@ -46,11 +43,11 @@ stages:
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate Clang latest'
-      imageName: $(linux-latest)
+      imageName: ${{variables.linux-latest}}
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate Clang Previous'
-      imageName: $(ubuntu-previous)
+      imageName: ${{variables.linux-previous}}
 
 # MSVC
 - stage: MSVC
@@ -59,11 +56,11 @@ stages:
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate MSVC latest'
-      imageName: $(vs-latest)
+      imageName: ${{variables.vs-latest}}
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate MSVC Previous'
-      imageName: $(vs-previous)
+      imageName: ${{variables.vs-previous}}
 
 # Apple-Clang
 - stage: Apple_Clang
@@ -72,8 +69,8 @@ stages:
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate Apple-Clang latest'
-      imageName: $(xcode-latest)
+      imageName: ${{variables.xcode-latest}}
   - template: ./pipelines/jobs.yml
     parameters:
       jobName: 'Validate Apple-Clang Previous'
-      imageName: $(xcode-previous)
+      imageName: ${{variables.xcode-previous}}
