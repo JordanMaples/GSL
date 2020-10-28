@@ -4,9 +4,9 @@ parameters:
 
 jobs:
 - job:
-  displayName: ${{parameters.imageName}}
+  displayName: ${{ parameters.imageName }}
   pool:
-    vmImage: ${{parameters.imageName}}
+    vmImage: ${{ parameters.imageName }}
   strategy:
     matrix:
       14_debug:
