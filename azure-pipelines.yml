@@ -11,9 +11,9 @@ variables:
 - name: vs-previous
   value: 'vs2017-win2016'
 - name: xcode-latest
-  value: macos-11.0
+  value: macos-10.15
 - name: xcode-previous
-  value: macOS-10.15
+  value: macOS-10.14
 
 # GCC
 stages:
