@@ -76,7 +76,6 @@ TEST(span_test, constructors)
     span<const int> cs;
     EXPECT_TRUE(cs.size() == 0);
     EXPECT_TRUE(cs.data() == nullptr);
-    EXPECT_TRUE(false);
 }
 
 TEST(span_test, constructors_with_extent)
