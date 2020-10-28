@@ -1,3 +1,6 @@
+pr:
+  autoCancel: true
+
 # GCC
 stages:
 - stage: GCC
